@@ -299,6 +299,23 @@ function woo_custom_cart_button_text() {
     return __( 'Agregar al cotizador', 'woocommerce' );
 }
 
+/*****************************************************************************************/
+/* Creación de dos metabox para obtener los usos ideales y los adicionales del PRODUCTO  */
+/****************************************************************************************/
+ 
+/* Vamos a agregar nuevos campos al producto para luego extraer esa informacion en el carrito*/
+
+//Filtro de woocomerce  - woocommerce_add_cart_item_data
+add_filter( 'woocommerce_add_cart_item_data', 'add_cart_item_custom_data_vase', 10, 2 );
+function add_cart_item_custom_data_vase( $cart_item_meta, $product_id ) {
+    global $woocommerce;
+    $cart_item_meta['cierre']    = $_POST['cierre'];
+    return $cart_item_meta;  //retornamos el valor 
+}
+
+
+
+
 
 /* Con estas acciones posicionamos el boton de agregar carrito despues de los atributos del producto pero antes
 de los productos relacionados*/

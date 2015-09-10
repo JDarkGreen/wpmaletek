@@ -220,7 +220,7 @@
 
 						<!-- Ocultamos si estamos en mobile -->
 
-						<div class="related products recomended_products hidden-xs">
+						<div class="related products recomended_products hide">
 							<!-- Modificando el título -->
 							<h2><?php _e('productos','woocommerce'); ?><?php echo " "; ?>
 								<strong><?php  _e('recomendados','woocommerce'); ?></strong>
@@ -233,6 +233,8 @@
 							<?php woocommerce_product_loop_end(); ?>
 
 						</div> <!-- /related products -->
+
+
 					<?php endif; 
 					wp_reset_postdata();
 				?>

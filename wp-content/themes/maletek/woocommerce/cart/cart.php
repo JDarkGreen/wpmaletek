@@ -15,7 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 do_action( 'woocommerce_before_cart' ); ?>
 
-
 	<form action="<?php echo esc_url( WC()->cart->get_cart_url() ); ?>" method="post">
 		<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
@@ -96,33 +95,26 @@ do_action( 'woocommerce_before_cart' ); ?>
 							
 							<!-- campo para mostrar el tipo de cierre o variaciones de cada producto  -->
 							<td class="product-closure-type">	
-								<?php 
-									/* Conseguimos la taxonomia de attributos del producto el cual empieza con 'pa_' y le pasamos como 
-									parametro para obtener las variaciones por producto */
+								<?php
+									/*Conseguimos los terminos de  taxonomía de "tipo de cierre para obtener las variaciones del producto "*/
 
-									$all_taxs = get_taxonomies();
-									//var_dump( $all_taxs );
-									$findme   = 'pa_';
+									$tax_cierre   = "pa_tipo-de-cierre";
+									$array_terms  = array( "hide_empty" => false);
+									$terms_cierre = get_terms( $tax_cierre , $array_terms );
 
-									foreach ($all_taxs as $all_tax ) {
-										if ( preg_match( '/'.$findme.'/' , $all_tax) ) {
-											$name_tax = $all_tax;
-										}
-									}
-									
-									$terms = wc_get_product_terms( $product_id , $name_tax , array( 'fields' => 'all' ) );
+									//Obtenemos el termino tipo de cierre del producto seleccionado
+									$the_cart_item_cierre =  $cart_item['cierre'];
 
-									// Conseguimos el nombre de la variacion del producto para estar seleccionada en el select
-									$selected_variation = $cart_item['variation']['attribute_'.$name_tax];
 								?>
 
-								<select name="select_variation_<?php echo $cart_item['variation_id'] ?>" id="select_variation_<?php echo $cart_item['variation_id'] ?>">
-									<?php foreach ( $terms as $term ) : ?>
-										<option value="<?php echo $term->slug ?>" <?php if( $term->slug === $selected_variation ){ echo 'selected'; } ?>>
-											<?php echo $term->name ?>
+								<select name="select_variation_<?php echo $cart_item['product_id'] ?>" id="select_variation_<?php echo $cart_item['product_id'] ?>">
+									<?php foreach ( $terms_cierre as $term_cierre ) : ?>
+										<option value="<?php echo $term_cierre->slug ?>" <?php if( $term_cierre->name == $the_cart_item_cierre ){ echo 'selected'; } ?>>
+											<?php echo $term_cierre->name ?>
 										</option>
 									<?php endforeach; ?>
 								</select>
+
 							</td>
 
 							<!-- campo para remover o eliminar productos de la lista del carrito de compra  -->

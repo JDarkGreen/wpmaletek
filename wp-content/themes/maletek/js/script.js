@@ -269,7 +269,11 @@ var sliderNext = 2;
             j(this).addClass('active');
             
             // Setear el select oculto con la opcion elegida "el tipo de cierre"
-            j( sl_var_product ).val( j(this).attr('data-attr') ).change();
+            //j( sl_var_product ).val( j(this).attr('data-attr') ).change();
+
+            //Cambiar el valor de vacio del input cierre para agregarlos en el carrito y setear al producto
+            j('#input-tipo-cierre').val( j(this).attr('data-attr') );
+             
         });
 
         //VAMOS A el input para que no acepte valores

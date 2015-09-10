@@ -186,9 +186,7 @@ if ( ! $product->is_purchasable() ) {
 										$image_html = s8_get_taxonomy_image( $term , array(200,210)); 
 										$atribute   = "attribute_" . sanitize_title( $name );
 
-										echo '<li><a href="#" data-attr="'. $variation_array[$i]['attributes'][$atribute] .'"><figure>' . $image_html . '</figure><p>'. $term->name . '<span>' . $term->description  . '</span></p></a></li>';
-
-										$i++;
+										echo '<li><a href="#" data-attr="'. $term->name .'"><figure>' . $image_html . '</figure><p>'. $term->name . '<span>' . $term->description  . '</span></p></a></li>';
 									}
 								}
 							?>
@@ -205,7 +203,7 @@ if ( ! $product->is_purchasable() ) {
 
 
 		<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
-		
+
 		<!-- Desplegamos el mensaje de confirmacion -->
 		<?php  wc_print_notices(); ?>
 
@@ -218,9 +216,19 @@ if ( ! $product->is_purchasable() ) {
 		<input type="hidden" name="add-to-cart" value="<?php echo $product->id; ?>" />
 		<input type="hidden" name="product_id" value="<?php echo esc_attr( $post->ID ); ?>" />
 		<input type="hidden" name="variation_id" class="variation_id" value="" />
+		
+		<!-- Estas son las nuevas modificaciones y campos agregados para enviar al carrito -->
+		<!-- Input cierre -->
+		<?php  
+			//Conseguimos el primer termino del attributo tipo de cierre
+			$first_tipo_cierre = $terms[0];
+		?>
+
+		<input id="input-tipo-cierre" type="hidden" name="cierre" value="<?= $first_tipo_cierre->name; ?>" />
+
+
 
 	</form><!-- /form -->
-
 
 </section> <!-- /section__config-product  -->
 
