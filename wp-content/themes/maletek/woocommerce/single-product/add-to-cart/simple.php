@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-global $product;
+global $product; 
 
 if ( ! $product->is_purchasable() ) {
 	return;
@@ -64,7 +64,9 @@ if ( ! $product->is_purchasable() ) {
 				?>
 
 
-				<a id="js-mnu-number-doors__menu" class="js-mnu-number-doors__menu" href="#" data-product="<?= get_the_title(); ?>"><?= $first_rango_slug; ?></a>
+				<a id="js-mnu-number-doors__menu" class="js-mnu-number-doors__menu" href="#" data-product="<?= get_the_title(); ?>" data-message="<?= $product->single_add_to_cart_text(); ?>"><?= $first_rango_slug; ?>
+				</a>
+
 				<ul>
 				<?php  
 					foreach ($terms_rango as $term_rango ) : 
@@ -203,8 +205,22 @@ if ( ! $product->is_purchasable() ) {
 
 
 		<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
+		
+		<!-- Desplegamos el mensaje de confirmacion -->
+		<?php  wc_print_notices(); ?>
+
+		<?php
+			//Incluimos o mostramos la configuraciones por cada producto de acuerdo al rango
+			include_once('/../../include/show-configurations.php');  
+		?>
+
+		<!-- Estos inputs contienen los parametros que se enviaran al cotizador no borrar  -->
+		<input type="hidden" name="add-to-cart" value="<?php echo $product->id; ?>" />
+		<input type="hidden" name="product_id" value="<?php echo esc_attr( $post->ID ); ?>" />
+		<input type="hidden" name="variation_id" class="variation_id" value="" />
 
 	</form><!-- /form -->
+
 
 </section> <!-- /section__config-product  -->
 

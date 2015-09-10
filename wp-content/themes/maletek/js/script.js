@@ -375,18 +375,19 @@ var sliderNext = 2;
                 j(this).parent('li').addClass('hide');
 
             //Llamamos a la funcion ajax
-            var producto = j('#js-mnu-number-doors__menu').data('product');
-            var rango   =  j(this).data('rango');
+            var producto =  j('#js-mnu-number-doors__menu').data('product');
+            var message  =  j('#js-mnu-number-doors__menu').data('message');
+            var rango    =  j(this).data('rango');
 
-            getAjaxLockers( producto , rango );
+            getAjaxLockers( producto , rango , message );
         });
 
 
         //Funcion Ajax
-        function getAjaxLockers( product , rango )
+        function getAjaxLockers( product , rango  , message )
         {
             //Setear las variables producto y rango
-            var product   = product; var rango = rango;
+            var product   = product; var rango = rango; var message = message;
 
             //Contenedor donde se colocará el contenido;
             var container = j('#js-sec__configurations-products__content');
@@ -403,7 +404,8 @@ var sliderNext = 2;
                 nonce   : MyAjax.nonce,
                 action  : 'get_lockers_byfilter',
                 product : product,
-                rango   : rango
+                rango   : rango,
+                message : message, 
             }, function(data) {
 
                 var html = '';      

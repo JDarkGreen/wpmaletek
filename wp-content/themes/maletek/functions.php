@@ -488,6 +488,7 @@ function get_lockers_byfilter_callback()
 
     $the_product = $_POST['product'];
     $the_rango   = $_POST['rango'];
+    $the_message = $_POST['message'];
 
     //Array vacio donde se almacenarán todos los id de los terminos los cuales estan filtrados 
     //por el producto y el rango.
@@ -507,11 +508,11 @@ function get_lockers_byfilter_callback()
         $t_ID = $modelo->term_id; //conseguimos el id
         $term_data = get_option("taxonomy_$t_ID"); //asignamos a la taxonomia ubicada en tabla wp_options
 
-        $product = $term_data['texto01']; //conseguimos el producto
+        $producto = $term_data['texto01']; //conseguimos el producto
         $rango  =  $term_data['texto02']; //conseguimos el rango 
 
         //Hacemos la comparacion y si es verdadera agregamos al nuevo array 
-        if ( ($product == $the_product )  && ($rango == $the_rango) ) {
+        if ( ($producto == $the_product )  && ($rango == $the_rango) ) {
             array_push( $array_id_tax , $t_ID );
         }
     }

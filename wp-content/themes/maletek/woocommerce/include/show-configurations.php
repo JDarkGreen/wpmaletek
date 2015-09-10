@@ -6,6 +6,7 @@
 
 //Argumentos para hacer la consulta
 
+
 $model_producto = get_the_title();  //el producto actual donde se encuentra
 
 
@@ -33,11 +34,11 @@ foreach ($array_modelos as $modelo ) {
 	$t_ID = $modelo->term_id; //conseguimos el id
 	$term_data = get_option("taxonomy_$t_ID"); //asignamos a la taxonomia ubicada en tabla wp_options
 
-	$product = $term_data['texto01']; //conseguimos el producto
+	$producto = $term_data['texto01']; //conseguimos el producto
 	$rango  =  $term_data['texto02']; //conseguimos el rango 
 
 	//Hacemos la comparacion y si es verdadera agregamos al nuevo array 
-	if ( ($product == $model_producto)  && ($rango == $model_rango) ) {
+	if ( ($producto == $model_producto)  && ($rango == $model_rango) ) {
 		array_push( $array_id_tax , $t_ID );
 	}
 }
@@ -100,8 +101,13 @@ foreach ($array_modelos as $modelo ) {
 					<?php endif ?>
 					
 					<hr>
+
+					<!-- Boton de agregar al carrito para cada configuracion  -->
+					<?php //global $woocommerce , $product; ?>
+
 					<button type="submit" class="single_add_to_cart_button cart_button hidden-xs">
-						Agregar al cotizador		
+					<!-- Mensaje texto del carrito ya configurado en functions.php -->
+						<?= $product->single_add_to_cart_text(); ?> 
 					</button>
 
 				</article> <!-- /article -->

@@ -104,7 +104,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		//woocommerce_output_related_products();
 
 		//Incluimos o mostramos la configuraciones por cada producto de acuerdo al rango
-		require_once('include/show-configurations.php');
+		//require_once('include/show-configurations.php');
 	?>
 
 	
