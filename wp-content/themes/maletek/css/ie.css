@@ -1,0 +1,31 @@
+.container {
+  width: 970px;
+}
+.carousel-fade .carousel-inner .item .carousel-caption {
+  background-color: black;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  padding: 20px;
+}
+.mainMenu ul > li {
+  padding: 8px 14px !important;
+}
+.mainMenu ul > li.current-menu-item,
+.mainMenu ul > li.current-page-ancestor,
+.mainMenu ul > li:hover {
+  background-image: none !important;
+  background-repeat: no-repeat;
+  background-color: #9e020b;
+}
+.mnu-ventas li {
+  padding: 8px 14px !important;
+}
+.mnu-ventas li.current-menu-item,
+.mnu-ventas li.current-page-ancestor,
+.mnu-ventas li:hover {
+  background-image: none !important;
+  background-repeat: no-repeat;
+  background-color: #9e020b;
+}
+.wrapper-botoner .botoner {
+  border: 1px solid black;
+}

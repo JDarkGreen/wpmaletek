@@ -1,0 +1,246 @@
+#pintaLockerSlide{
+    float: left;
+    width: 780px;
+}
+#pintaLockerSlide h1{
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 3px solid #a60b14;
+}
+#pintaLockerGalleryBlock{
+    width: 740px;
+    margin-left: 60px;
+    height: 400px;
+    margin-bottom: 20px;
+}
+#pintaLockerGallery{
+    width: 620px;
+    height: 400px;
+    overflow: hidden;
+}
+#pintaLockerGallery .slide{
+    width: 620px;
+    height: 400px;
+    float: left;
+    display:none;
+    overflow: hidden;
+}
+#pintaLockerGallery .image{
+    width: 620px;
+    height: 400px;
+    float: left;
+}
+#pintaLockerGallery .text{
+    float: right;
+    width: 220px;
+    padding-left: 10px;
+    font-size: 14px;
+}
+#pintaLockerGallery .text h3{
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+#pintaLockerGallery .text .info{
+    height: 300px;
+    overflow: auto;
+    margin-bottom: 15px;
+}
+#pintaLockerGallery .scheme{
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+#pintaLockerGallery .scheme .locker{
+    position: absolute;
+    cursor: pointer;
+}
+#pintaLockerThumbBlock{
+    background: url(../frontend/imgs/slideThumb.jpg) bottom left no-repeat;
+    width: 780px;
+    margin-left: 60px;
+    overflow: hidden;
+}
+#pintaLockerThumb-prev{
+    float: left;
+    margin-left: 60px;
+}
+#pintaLockerThumb-next{
+    float: right;
+}
+#pintaLockerThumb{
+    width: 780px;
+    overflow: hidden;
+}
+#pintaLockerThumb a{
+    float: left;
+    text-align: center;
+    padding: 8px 0 5px;
+    margin: 0 5px;
+    width: 110px;
+}
+#pintaLockerThumb a img{
+    display: block;
+    margin: 0 auto 5px;
+}
+#pintaLockerThumb a label{
+    display: block;
+    background: #e8e8e8;
+}
+#pintaLockerThumb a.selected{
+    background: url(../frontend/imgs/slideThumb-selector.png) top center no-repeat;
+}
+
+#pintaLockerInfo{
+    float: right;
+    width: 300px;
+    height: 525px;
+    margin-top: -25px;
+    background: url(../frontend/imgs/sidebar.png) top right no-repeat;
+}
+#pintaLockerInfo .content{
+    padding: 40px 25px 0;
+    color: #fff;
+    height: 400px;
+}
+#pintaLockerInfo h1{
+    color: #fff;
+    margin-bottom: 20px;
+}
+#pintaLockerInfo h1 .text-1{
+    font-size: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+#pintaLockerInfo h1 .text-2{
+    font-size: 20px;
+}
+#pintaLockerInfo h1 .text-3{
+    font-size: 55px;
+    font-weight: bold;
+    font-style: italic;
+    display: block;
+    line-height: 45px;
+}
+#pintaLockerInfo p{
+    font-size: 14px;
+}
+#pintaLockerControl{
+    float: left;
+    width: 115px;
+    height: 390px;
+    padding-right: 15px;
+    padding-top: 10px;
+    text-align: right;
+}
+#pintaLockerControl a.color{
+    display: block;
+    margin-bottom: 5px;
+    text-align: right;
+    font-size: 12px;
+}
+#pintaLockerControl a.color span{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    vertical-align: middle;
+    background-size: 16px;
+    background-repeat: no-repeat;
+    margin-left: 5px;
+}
+#pintaLockerControl a.selected span{
+    border: 2px solid #000;
+}
+
+.applyAll, .applyRequest{
+    cursor:pointer;
+    display: block;
+}
+.applyRequest{
+    margin-bottom: 5px;
+}
+/*.printRequest{
+    display: none;
+}
+.printRequest.available{
+    display:inline-block;
+}*/
+
+#pintaLockerPopup{
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+}
+#pintaLockerRequest{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    width: 370px;
+    padding: 30px 35px;
+    border:5px solid #a60b14;
+    border-radius: 15px;
+    margin:-150px 0 0 -150px;
+    background: #fff;
+}
+#pintaLockerRequest .button{
+    text-align: center;
+}
+#pintaLockerRequest .field{
+    margin: 0 0 10px;
+}
+#pintaLockerRequest .input-text{
+    width: 245px;
+    height: 35px;
+    border:0px;
+    background: url(../frontend/imgs/input-field.png) top left no-repeat;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: block;
+    margin: auto;
+}
+
+#pintaLockerMessage{
+    padding: 5px 35px;
+    border:5px solid #339966;
+    border-radius: 5px;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    width: 370px;
+    padding: 30px 35px;
+    border-radius: 5px;
+    margin:-150px 0 0 -150px;
+    background: #fff;
+}
+#pintaLockerMessage.error{
+    border:5px solid #f00;
+}
+#pintaLockerRequestClose{
+    vertical-align: top;
+    cursor: pointer;
+}
+#pintaLockerBack{
+    display: block;
+    margin: 5px auto;
+    width: 150px;
+    text-align: center;
+    color: #fff;
+    padding: 5px 0;
+    background: #900;
+}
+
+#pintaLockerCall{
+    background: url(../frontend/imgs/atencionCliente.png) top center no-repeat;
+    width: 278px;
+    height: 106px;
+    display: block;
+    margin: auto;
+}

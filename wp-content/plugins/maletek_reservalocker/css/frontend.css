@@ -1,0 +1,374 @@
+#reservaLocker{
+    padding-top: 20px;
+}
+#reservaLocker-sidebar{
+    float:left;
+    width: 320px;
+    min-height: 300px;
+    padding-right: 50px;
+    padding-bottom:15px;
+    font-size: 14px;
+    text-align: left;
+}
+#reservaLocker-access{    
+    padding-top: 15px;
+    border-bottom: 2px solid #c10f1a;
+    margin-bottom: 15px;
+}
+#reservaLocker-access a{    
+    color: #000;
+    font-weight: normal;
+    text-transform: uppercase;
+    background: #dedede;
+    display: inline-block;
+    padding: 3px 10px;
+    margin-right: 5px;
+    text-decoration: none;
+}
+#reservaLocker-access a.selected,
+#reservaLocker-access a:hover
+{    
+    color: #fff;
+    background: #c10f1a;
+}
+#reservaLocker-login{
+    
+}
+#reservaLocker-register{
+    display: none;
+}
+
+#reservaLocker-sidebar .input-text,
+#reservaLocker-sidebar .input-select{
+    display: block;
+    margin: auto;
+    width: 240px;
+    height: 30px;
+    border:3px solid #878787;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+#reservaLocker-sidebar .sidebar-tab{
+    text-align: justify;
+}
+#reservaLocker-sidebar .input-button{
+    display: block;
+    margin: auto;
+    color: #fff;
+    text-align: center;
+    border:0px;
+    background: url(../frontend/imgs/input-button.png) center center no-repeat;
+    height: 40px;
+    width: 115px;
+    text-transform: uppercase;
+}
+#reservaLocker-sidebar .input-label{
+    
+}
+#reservaLocker-sidebar .input-data{
+    font-style: italic;
+}
+#reservaLocker-sidebar .close-session{
+    padding: 50px 0 0;
+    clear: both;
+    text-align: right;
+}
+#reservaLocker-sidebar .close-session .input-button{
+    display: inline;
+}
+#reservaLocker-sidebar .control{
+    padding-top: 10px;
+}
+#reservaLocker-sidebar .control .input-button{
+    display: inline;
+}
+#reservaLocker-sidebar h3{
+    font-size: 16px;
+    font-weight: bold;
+}
+#reservaLocker-edit{
+    padding-top: 20px;
+}
+
+#reservaLocker-area{
+    text-align: left;
+    min-height: 500px;
+}
+#reservaLocker-area .tab{
+    border-bottom: 3px solid #c10f1a;
+}
+#reservaLocker-area .tab a{
+    background: #dedede;
+    margin-right: 5px;
+    padding: 2px 10px;
+    display: inline-block;
+}
+#reservaLocker-area .tab a.selected{
+    background: #c10f1a;
+    color: #fff;
+}
+#reservaLocker-area .tab-block{
+    display: none;
+    background: #f3f3f3;
+    padding: 15px;
+    height: 450px;
+    overflow: auto;
+    position: relative;
+}
+#reservaLocker-area .sector{
+    float: left;
+    width: 220px;
+    height: 170px;
+    margin: 0 5px 10px;
+    position: relative;
+    background: #999;
+    overflow: hidden;
+    
+}
+#reservaLocker-area .sector label{
+    background: rgba(255,0,0,0.5);
+    background-size: 100% auto;
+    text-align: left;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 2%;
+    color: #fff;
+    margin: 0;
+    bottom: -30px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    position: absolute;
+    cursor:pointer;
+}
+#reservaLocker-area .sector:hover label{
+    bottom: 0;
+}
+#reservaLocker-area .sector span{
+    text-align: right;
+    font-size: 14px;
+    font-weight: normal;
+    display: block;
+}
+
+#reservaLockerPopup{
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+}
+#reservaLockerPopup-dialog{
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    margin-left: -170px;
+    width: 350px;
+    min-height: 200px;
+}
+#reservaLockerPopup-close{
+    background: #000;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    top: -10px;
+    right: -10px;
+    font-size: 15px;
+    line-height: 30px;
+    position: absolute;
+    text-align: center;
+}
+
+#reservaLocker-content{
+    float:left;
+    width: 750px;
+    position: relative;
+}
+#reservaLocker-ticket b{
+    display:inline-block;
+    width: 200px;
+}
+#reservaLocker-slide{
+    background: url(../frontend/imgs/slide.png) top left no-repeat;
+    width: 850px;
+    height: 480px;
+    font-size: 14px;
+}
+
+.loading{
+    text-align: center;
+    font-size: 25px;
+    padding-top: 50px;
+}
+#reservaLocker-locker{
+    background: rgba(0,0,0,0.5);
+    top:30px;
+    left:0px;
+    width: 100%;
+    height: 450px;
+    position: absolute;
+    display: none;
+}
+#reservaLocker-locker h1{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0 0 5px;
+}
+#reservaLocker-locker .popupDialog{
+    background: url(../frontend/imgs/reservaLocker-locker.png) top center no-repeat;
+    width: 680px;
+    height: 420px;
+    padding: 30px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    margin-left: -340px;
+}
+#reservaLocker-locker .popupDialog-close{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #000;
+    cursor: pointer;
+}
+#reservaLocker-locker .popupContent{
+    
+}
+#reservaLocker-locker .popupDialog-locker{
+    width:360px;
+    margin-right: 25px;
+    float: left;
+}
+#reservaLocker-locker .popupDialog-lockerNext{
+    float: right;
+    font-weight: bold;
+    font-size: 25px;
+    color: #c51f29;
+    padding: 0 5px;
+}
+#reservaLocker-locker .popupDialog-lockerPrev{
+    float: left;
+    font-weight: bold;
+    font-size: 25px;
+    color: #c51f29;
+    padding: 0 5px;
+}
+.popupDialog-reserveForm{
+    display: none;
+}
+.popupDialog-reserveForm:first-child{
+    display: block;
+}
+#reservaLocker-locker h3{
+    width: 80%;
+    font-weight: bold;
+    margin: 0 auto 10px;
+    text-align: center;
+    font-size: 16px;
+}
+#reservaLocker-locker .popupDialog-text{
+    width:230px;
+    float: left;
+    font-size: 14px;
+}
+#reservaLocker-locker .popupDialog-message{
+    width:230px;
+    float: left;
+    font-size: 14px;
+    padding-top: 50px;
+    display: none;
+}
+#reservaLocker-locker .input-text{
+    width:90%;
+    display: block;
+    height: 25px;
+    border:1px solid #999;
+    margin-bottom: 2px;
+}
+#reservaLocker-locker .lockerNumber{
+    width:50px;
+    display: inline-block;
+    border:0px;
+    background: transparent;
+    cursor: pointer;
+}
+#reservaLocker-locker .input-select{
+    width:100px;
+    height: 25px;
+    border:1px solid #999;
+}
+#reservaLocker-locker .input-button{
+    display: block;
+    margin: 5px auto 0;
+    color: #fff;
+    text-align: center;
+    border:0px;
+    background: url(../frontend/imgs/input-button.png) center center no-repeat;
+    height: 40px;
+    width: 115px;
+    text-transform: uppercase;
+}
+#reservaLocker-locker p{
+    margin-bottom: 0;
+}
+#reservaLocker-locker .item{
+    margin: auto;
+    display: block;
+    background: #d8d7d5;
+    border:2px solid #b1b0ae;
+    text-align: center;
+}
+#reservaLocker-locker .item .locker{
+    float:left;
+    margin: 3px 0 0 3px;
+    border:1px solid #b1b0ae;
+    position: relative;
+}
+
+
+#reservaLocker-locker .item .locker.enable{
+    cursor: pointer;
+}
+#reservaLocker-locker .item .locker.disable{
+    background: #999;
+    cursor: default;
+}
+#reservaLocker-locker .item .locker:hover{
+    border:1px solid #000;
+}
+#reservaLocker-locker .locker .status{
+    width: 90%;
+    border:1px solid #b1b0ae;
+    margin: 5px auto;
+}
+#reservaLocker-locker .item .locker.enable .status{
+    background: #0fb40b;
+}
+#reservaLocker-locker .item .locker.disable .status{
+    background: #c23039;
+    text-align: center;
+}
+#reservaLocker-locker .item .locker.selected{
+    border:1px solid #000;
+}
+#reservaLocker-locker .locker .lock{
+    position: absolute;
+    top: 40%;
+    width: 10px;
+    height: 15px;
+    left: 5px;
+    border: 1px solid #000;
+    border-bottom: 3px solid #000;
+}
+.shareData{
+    display: none;
+}

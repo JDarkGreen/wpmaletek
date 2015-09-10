@@ -1,0 +1,214 @@
+/*Table*/
+table.dataTable {
+	margin: 0 auto;
+	clear: both;
+	width: 100%;
+}
+table.dataTable thead th {
+	padding: 3px 5px 3px 5px;
+	font-weight: bold;
+	cursor: pointer;
+        text-align: left;
+}
+table.dataTable thead th .ui-icon{
+    float: left;
+}
+table.dataTable tfoot th {
+	padding: 3px 18px 3px 10px;
+	border-top: 1px solid black;
+	font-weight: bold;
+}
+table.dataTable td {
+	padding: 5px 5px;
+        border-bottom: 1px dotted #000;
+}
+table.dataTable td.center,
+table.dataTable td.dataTables_empty {
+	text-align: center;
+}
+
+table.dataTable .intOrder {
+    border: 1px solid #2E6E9E;
+    height: 18px;
+    margin-left: 5px;
+    text-align: right;
+    vertical-align: middle;
+    width: 30px;
+}
+
+/*Table wrapper*/
+.dataTables_wrapper {
+        margin-top: 15px;
+	position: relative;
+	clear: both;
+}
+.dataTables_wrapper .fg-toolbar{
+    padding: 5px 10px;
+}
+
+/*Page length menu*/
+.dataTables_length {
+	float: left;
+}
+
+/*Filter*/
+.dataTables_filter {
+	float: right;
+	text-align: right;
+}
+
+/*Table information*/
+.dataTables_info {
+	clear: both;
+	float: left;
+}
+
+/*Pagination*/
+.dataTables_paginate {
+	float: right;
+	text-align: right;
+}
+
+.adminForm{
+    
+}
+.adminForm label{
+    clear: left;
+    font-weight:bold;
+    float: left;
+    width: 150px;
+    padding-top: 5px;
+}
+.adminForm .input{
+   margin-left:160px;
+}
+.adminForm .field{
+    padding-bottom:10px;
+}
+.adminForm .input-text{
+   width:300px;
+}
+.adminForm .input-textarea{
+   width:300px; 
+}
+.adminForm label.error{
+    color:#f00;
+    display:block;
+}
+.adminForm .statusProcess{
+    margin-bottom: 10px;
+}
+
+.dataTables_wrapper .fg-button{
+    display: inline-block;
+    min-width: 15px;
+    margin: 0 2px 0 0;
+    height: 20px;
+}
+.dataTables_processing{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 30;
+}
+.dataTables_processing div{
+    position: absolute;
+    top: 50%;
+    height: 30px;
+    margin-top: -15px;
+    width: 100%;
+}
+
+.adminDelete{
+    width: 400px;
+}
+
+.colorBlock{
+    height: 20px;
+    width: 50px;
+}
+
+#requestScheme .item-color{
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 0 2px 2px 0;
+    border: 1px solid #999;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 20px auto;
+}
+#requestScheme .item-color.selected{
+    border: 1px solid #000;
+}
+.sub-input{
+    padding-bottom: 5px;
+}
+
+#requestScheme{
+    width:400px;    
+}
+#schemaBlock{
+    width:400px;
+    height: 400px;
+}
+#schemaBlock .itemBlock{
+    width:400px;
+    height: 400px;
+    display: none;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+}
+#schemaBlock .item{
+    border:1px solid #000;
+    margin: 0 2px 2px;
+    width: 30px;
+    height: 30px;
+    float:left;
+    cursor: pointer;
+}
+#schemaBlock .itemBlock .locker{
+    position: absolute;
+    cursor: pointer;
+}
+
+#coordPosition{
+    position: relative;
+}
+.loadPosArea{
+    width: 90%;
+}
+.loadPos{
+
+}
+#loadPosBlock{
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+#loadPosLoading{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    background:#fff url(../backend/img/loader.GIF) center center no-repeat;
+}
+#loadBlockLoading{
+    width: 220px;
+    height: 220px;
+    background:#fff url(../backend/img/loader.GIF) center center no-repeat;
+}
+#buttonPosition{
+    padding-top: 20px;
+    float: left;
+    width: 100px;
+    clear: left;
+}

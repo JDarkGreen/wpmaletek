@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#pageForm{
+    font-family: Verdana;
+    margin:auto;
+    width: 600px;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000;
+    border: 1px dotted #000;
+    text-align: left;
+    margin-bottom: 20px;
+}
+#pageForm .field{
+   margin-bottom: 10px;
+}
+#pageForm .label{
+    width: 200px;
+    font-weight: bold;
+    float: left;
+}
+#pageForm .input{
+    margin-left: 200px;
+}
+#pageForm .schema{
+    border: 1px solid #000;
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+#pageForm .schema .locker{
+    position: absolute;
+}
+#header{
+    background: #820a11;
+    padding: 10px 20px;
+    width: 600px;
+    margin: 15px auto 0;
+}
+#logo{
+    background: url(../frontend/imgs/f_maletek.png) no-repeat center left;
+    width: 150px;
+    height: 35px;
+}
+
+.control{
+    font-family: Verdana;
+    margin:auto;
+    width: 640px;
+    padding: 0 0 20px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000;
+    clear: both;
+}
+.control a{
+    display: inline-block;
+    padding: 5px 10px;
+    background: #820a11;
+    border: 1px solid #820a11;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+.control a:hover{
+    color: #000;
+    background: #fff;
+}
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}

@@ -1,0 +1,18 @@
+/**********************************************************************************
+
+	Theme Name: Maletek
+	Theme URI:
+	Description: A responsive blog and magazine WordPress theme.
+	Version: 1.0
+	Author:	AD+Inspector
+	Author URI: http://ad-inspector.com/peru/
+	License: GNU General Public License version 3.0
+	License URI: http://www.gnu.org/licenses/gpl-3.0.html
+	Tags: black, blue, white, two-columns, flexible-width, threaded-comments, translation-ready, custom-menu
+
+**********************************************************************************/
+
+@import url("css/bootstrap.min.css");
+@import url("css/jquery.fancybox.min.css");
+@import url("css/slidebars.css");
+@import url("css/master.css");
