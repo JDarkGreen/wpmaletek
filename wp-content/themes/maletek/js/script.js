@@ -378,6 +378,9 @@ var sliderNext = 2;
                 //ocultamos elemento padre
                 j(this).parent('li').addClass('hide');
 
+            //seteamos el valor en el input rango para enviar luego al carrito
+            j('#input-rango').val( text );
+
             //Llamamos a la funcion ajax
             var producto =  j('#js-mnu-number-doors__menu').data('product');
             var message  =  j('#js-mnu-number-doors__menu').data('message');
@@ -442,6 +445,19 @@ var sliderNext = 2;
         j('#js_open_login').on('click',function(){
             j('#modal__login_wc').modal('show');
         });
+
+
+        /* Nota funcionamiento IMPORTANTE - este codigo envia parametros nuevos para actualizar la 
+            orden de compra */
+
+        //Al hacer click al boton update cart
+        var btn_update_cart = j('#update_cart');
+        btn_update_cart.click(function(){
+            alert('ok');
+        });
+
+
+
 
         /******************************************************************************************************/
         /************************************  SECTION NOVEDADES  *********************************************/

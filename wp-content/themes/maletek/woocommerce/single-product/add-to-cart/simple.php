@@ -218,6 +218,7 @@ if ( ! $product->is_purchasable() ) {
 		<input type="hidden" name="variation_id" class="variation_id" value="" />
 		
 		<!-- Estas son las nuevas modificaciones y campos agregados para enviar al carrito -->
+
 		<!-- Input cierre -->
 		<?php  
 			//Conseguimos el primer termino del attributo tipo de cierre
@@ -226,6 +227,8 @@ if ( ! $product->is_purchasable() ) {
 
 		<input id="input-tipo-cierre" type="hidden" name="cierre" value="<?= $first_tipo_cierre->name; ?>" />
 
+		<!-- Input rango  -->
+		<input id="input-rango" type="hidden" name="rango" value="<?= $first_rango_slug;  ?>" />
 
 
 	</form><!-- /form -->

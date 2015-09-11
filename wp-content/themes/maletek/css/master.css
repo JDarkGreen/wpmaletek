@@ -1954,7 +1954,7 @@ button.cart_button{
     font-weight   : 500;
     padding       : 0 10px 5px;
     text-align    : center;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 /* Product Thumbnail*/
@@ -1986,9 +1986,12 @@ button.cart_button{
 }
 .woocommerce-cart table.cart tbody tr.cart_item .product-name{ padding: 13px 10px 22px; }
 
-/* Styles for Product Remove and Select tipo de cierre */
+/* Stylos para los diversos select  */
 .woocommerce-cart table.cart tbody tr.cart_item .product-remove a.item-remove,
-.woocommerce-cart table.cart tbody tr.cart_item .product-closure-type select
+.woocommerce-cart table.cart tbody tr.cart_item .product-closure-type select,
+.woocommerce-cart table.cart tbody tr.cart_item .product-rango select,
+.woocommerce-cart table.cart tbody tr.cart_item .product-model select
+
 {
   -moz-border-radius   : 3px;
   -webkit-border-radius: 3px;
@@ -2000,8 +2003,11 @@ button.cart_button{
   text-decoration      : none;
 }
 
-/* Solo para el select de tipos de cierre */
-.woocommerce-cart table.cart tbody tr.cart_item .product-closure-type select{
+/* Solo para el select de tipos de cierre, rango y modelo del producto  */
+.woocommerce-cart table.cart tbody tr.cart_item .product-closure-type select,
+.woocommerce-cart table.cart tbody tr.cart_item .product-rango select,
+.woocommerce-cart table.cart tbody tr.cart_item .product-model select
+{
     -moz-appearance   :none; /* Firefox */
     -webkit-appearance:none; /* Safari and Chrome */   
     appearance        :none;

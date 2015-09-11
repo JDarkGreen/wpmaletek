@@ -18,18 +18,19 @@ do_action( 'woocommerce_before_cart' ); ?>
 	<form action="<?php echo esc_url( WC()->cart->get_cart_url() ); ?>" method="post">
 		<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
+		<input id="update_cart" type="submit" class="button" name="update_cart" value="Actualizar carrito" />
+		<?php wp_nonce_field( 'woocommerce-cart' ); ?>
+
 		<!--table class="shop_table cart" cellspacing="0"-->
 		<table class="cart shop_table hidden-xs" cellspacing="0">
 			<thead>
 				<tr>
-					<th class="product-thumbnail">&nbsp;</th>
 					<th class="product-name"><?php _e( 'Producto',THEMEDOMAIN ); ?></th>
-					<th class="product-quantity"><?php _e( 'Modulos',THEMEDOMAIN ); ?></th>
 					<th class="product-closure-type"><?php _e( 'Tipo de Cierre' ,THEMEDOMAIN ); ?></th>
-					<th class="product-remove">
-						<input id="update_cart" type="submit" class="button" name="update_cart" value="Actualizar carrito" />
-						<?php wp_nonce_field( 'woocommerce-cart' ); ?>
-					</th>
+					<th class="product-rango"><?php _e('Cant. Puertas', THEMEDOMAIN); ?></th>
+					<th class="product-model"><?php _e('Modelo' , THEMEDOMAIN ); ?></th>
+					<th class="product-thumbnail"><?php _e('Vista previa', THEMEDOMAIN ); ?> </th>
+					<th class="product-remove"> &nbsp; </th>
 				</tr>
 			</thead>
 
@@ -44,21 +45,12 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 					if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 						?>
+
+						<?php  var_dump( $cart_item ); ?>
+
 						<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> ">
 							
-							<!-- Miniatura del producto -->
-							<td class="product-thumbnail">
-								<?php
-									$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
-
-									if ( ! $_product->is_visible() )
-										echo $thumbnail;
-									else
-										printf( '<a href="%s">%s</a>', $_product->get_permalink( $cart_item ), $thumbnail );
-								?>
-							</td>	
-							
-							<!-- Nombre del producto -->
+							<!-- 1- Nombre del producto -->
 							<td class="product-name">
 								<?php
 									if ( ! $_product->is_visible() )
@@ -74,26 +66,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 		               					echo '<p class="backorder_notification">' . __( 'Available on backorder', 'woocommerce' ) . '</p>';
 								?>
 							</td>
-							
-							<!-- Cantidad del producto -->
-							<td class="product-quantity">
-								<?php
-									if ( $_product->is_sold_individually() ) {
-										$product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
-									} else {
-										$product_quantity = woocommerce_quantity_input( array(
-											'input_name'  => "cart[{$cart_item_key}][qty]",
-											'input_value' => $cart_item['quantity'],
-											'max_value'   => $_product->backorders_allowed() ? '' : $_product->get_stock_quantity(),
-											'min_value'   => '0'
-										), $_product, false );
-									}
 
-									echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key );
-								?>
-							</td>
-							
-							<!-- campo para mostrar el tipo de cierre o variaciones de cada producto  -->
+							<!-- 2 - campo para mostrar el tipo de cierre o variaciones de cada producto  -->
 							<td class="product-closure-type">	
 								<?php
 									/*Conseguimos los terminos de  taxonomía de "tipo de cierre para obtener las variaciones del producto "*/
@@ -106,7 +80,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 									$the_cart_item_cierre =  $cart_item['cierre'];
 
 								?>
-
+								<!-- Select de todas las variaciones y se mostrará el elegido  -->
 								<select name="select_variation_<?php echo $cart_item['product_id'] ?>" id="select_variation_<?php echo $cart_item['product_id'] ?>">
 									<?php foreach ( $terms_cierre as $term_cierre ) : ?>
 										<option value="<?php echo $term_cierre->slug ?>" <?php if( $term_cierre->name == $the_cart_item_cierre ){ echo 'selected'; } ?>>
@@ -116,12 +90,96 @@ do_action( 'woocommerce_before_cart' ); ?>
 								</select>
 
 							</td>
+							
+							<!-- 3- campo mostrar los rangos del producto -->
+							<td class="product-rango">
+								<?php  
+									/*Conseguimos los terminos de  taxonomía de "rangos para obtener los
+									rangos del producto "*/
+
+									$tax_rango    = "pa_rango";
+									$array_terms  = array( "hide_empty" => false);
+									$terms_rango  = get_terms( $tax_rango , $array_terms );
+
+									//Obtenemos el termino tipo de rango del producto seleccionado
+									$the_cart_item_rango =  $cart_item['rango'];
+								?>
+								
+								<!-- Mostramos todos los rangos y estará seleccionado el elegido -->
+								<select name="select_rango_<?php echo $cart_item['product_id'] ?>" id="select_rango_<?php echo $cart_item['product_id'] ?>">
+									<?php foreach ( $terms_rango as $term_rango ) : ?>
+										<option value="<?php echo $term_rango->slug ?>" <?php if( $term_rango->slug == $the_cart_item_rango  ){ echo "selected"; } ?> > 
+											<?php echo $term_rango->name ?>
+										</option>
+									<?php endforeach; ?>
+								</select>																
+
+							</td>
+							
+							<!-- 4 - Campo modelo donde se filtara por el tipo de rango seleccionado -->
+							<td class="product-model">
+								<?php  
+									//Conseguimos todos los id de los terminos de tanonomia modelos creadas y la comparamos con nuestros 
+									// argumentos si son iguales entonces guardamos su id en otro array
+
+									//tipo de rango del producto seleccionado ->  $the_cart_item_rango;
+									//nombre del producto seleccionado $_product->get_title(); -> 
+
+									$taxonomy_modelos = "pa_modelos";
+									$args     = array(
+										'hide_empty' => false, 
+									);
+
+									$array_modelos = get_terms( $taxonomy_modelos , $args );
+									$array_id_tax  = []; //array vacio contendrá id de modelos 
+
+									foreach ($array_modelos as $modelo ) {
+										$t_ID = $modelo->term_id; //conseguimos el id
+										$term_data = get_option("taxonomy_$t_ID"); //asignamos a la taxonomia ubicada en tabla wp_options
+
+										$producto = $term_data['texto01']; //conseguimos el producto
+										$rango   =  $term_data['texto02']; //conseguimos el rango 
+
+										//Hacemos la comparacion y si es verdadera agregamos al nuevo array 
+										if ( ($producto == $_product->get_title() )  && ($rango == $the_cart_item_rango ) ) {
+											array_push( $array_id_tax , $t_ID );
+										}
+									}
+				
+ 								?>
+	 							
+	 							<!-- Select de todos los modelos segun el filtro  -->
+	 							<select name="select_modelo_<?php echo $cart_item['product_id'] ?>" id="select_modelo_<?php echo $cart_item['product_id'] ?>">
+								<?php 									
+									//una vez obtenido el array mostramos los modelos
+									for ($i=0; $i < count($array_id_tax) ; $i++) {
+										$modelo = get_term( $array_id_tax[$i] , $taxonomy_modelos );  
+								?>
+									<option value="<?php echo $modelo->slug ?>"> 
+										<?php echo $modelo->name ?>
+									</option>
+								<?php } ?>
+								</select>
+
+							</td>
+
+							<!-- 5- Miniatura del producto -->
+							<td class="product-thumbnail">
+								<?php
+									$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
+
+									if ( ! $_product->is_visible() )
+										echo $thumbnail;
+									else
+										printf( '<a href="%s">%s</a>', $_product->get_permalink( $cart_item ), $thumbnail );
+								?>
+							</td>	
 
 							<!-- campo para remover o eliminar productos de la lista del carrito de compra  -->
 							<td class="product-remove">
 								<?php
 								//Reemplazar la clase remove por item-remove
-									echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="item-remove" title="%s">Quitar de la lista</a>', esc_url( WC()->cart->get_remove_url( $cart_item_key ) ), __( 'Remove this item', 'woocommerce' ) ), $cart_item_key );
+									echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="item-remove" title="%s">x</a>', esc_url( WC()->cart->get_remove_url( $cart_item_key ) ), __( 'Remove this item', 'woocommerce' ) ), $cart_item_key );
 								?>
 							</td>
 						</tr>

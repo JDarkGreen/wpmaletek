@@ -300,20 +300,25 @@ function woo_custom_cart_button_text() {
 }
 
 /*****************************************************************************************/
-/* Creación de dos metabox para obtener los usos ideales y los adicionales del PRODUCTO  */
+/* Vamos a agregar nuevos campos al producto para luego extraer esa informacion en el carrito  */
 /****************************************************************************************/
- 
-/* Vamos a agregar nuevos campos al producto para luego extraer esa informacion en el carrito*/
 
 //Filtro de woocomerce  - woocommerce_add_cart_item_data
 add_filter( 'woocommerce_add_cart_item_data', 'add_cart_item_custom_data_vase', 10, 2 );
 function add_cart_item_custom_data_vase( $cart_item_meta, $product_id ) {
     global $woocommerce;
     $cart_item_meta['cierre']    = $_POST['cierre'];
+    $cart_item_meta['rango']     = $_POST['rango'];
     return $cart_item_meta;  //retornamos el valor 
 }
 
-
+add_filter( 'woocommerce_get_cart_item_from_session', 'get_cart_items_from_session', 1, 3 );
+//Get it from the session and add it to the cart variable
+function get_cart_items_from_session( $item, $values, $key ) {
+    if ( array_key_exists( 'cierre', $values ) )
+        $item[ 'cierre' ] = $values['cierre'];
+    return $item;
+}
 
 
 
