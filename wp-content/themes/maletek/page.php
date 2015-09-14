@@ -179,8 +179,6 @@
 
 				<?php if (have_posts()) : while(have_posts()) : the_post(); ?>
 
-					<?php if(!is_cart() ) :  ?> <!-- Comprueba si esta en la pagina del carrito -->
-
 					<article class="page-content">
 						<?php
 							$title = get_the_title();
@@ -211,8 +209,6 @@
 						<?php else : ?>
 						<h2 class="text-center visible-xs-block"><?php echo $title; ?></h2>
 						<?php endif; ?>
-
-					    <?php endif; ?> <!-- cierra comprobacion de la pagina del carrito -->
                            
                         <div class="content">
 						    <?php the_content(); ?>
@@ -226,6 +222,7 @@
 						<h1><?php _e('No page was found.', THEMEDOMAIN); ?></h1>
 
 					</article>
+					
 				<?php endif; ?>
 
 				</div><!--/col-xs-9  -->

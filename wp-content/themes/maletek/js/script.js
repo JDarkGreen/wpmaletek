@@ -457,6 +457,38 @@ var sliderNext = 2;
         });
 
 
+        //Al cambiar opcion del item del carrito cambiar los otros parametros
+
+        /* Al cambiar el rango cambiar los modelos */
+        var sl_rango_item_cart = j('.js_rango');
+
+        sl_rango_item_cart.on("change",function(e){
+            var rango = j(this).val();
+            ChangeItemCartAjax(rango);
+        });
+
+        //Funcion Ajax
+        function ChangeItemCartAjax( rango )
+        {
+            j.post( MyAjax.url, {
+                nonce   : MyAjax.nonce,
+                action  : 'get_item_byrango',
+                rango   : rango,
+            }, function(data) {
+
+                var html = '';      
+
+                if ( data.result )
+                {
+                   html = data.content;
+                }
+                    
+
+            }, 'json');
+        }
+    
+
+
 
 
         /******************************************************************************************************/

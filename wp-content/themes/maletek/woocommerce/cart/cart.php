@@ -45,8 +45,8 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 					if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 						?>
-
-						<?php  var_dump( $cart_item ); ?>
+	
+						<?php  //var_dump( $cart_item ); ?>
 
 						<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> ">
 							
@@ -106,7 +106,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 								?>
 								
 								<!-- Mostramos todos los rangos y estará seleccionado el elegido -->
-								<select name="select_rango_<?php echo $cart_item['product_id'] ?>" id="select_rango_<?php echo $cart_item['product_id'] ?>">
+								<select name="select_rango_<?php echo $cart_item['product_id'] ?>" id="select_rango_<?php echo $cart_item['product_id'] ?>" class="js_rango">
 									<?php foreach ( $terms_rango as $term_rango ) : ?>
 										<option value="<?php echo $term_rango->slug ?>" <?php if( $term_rango->slug == $the_cart_item_rango  ){ echo "selected"; } ?> > 
 											<?php echo $term_rango->name ?>

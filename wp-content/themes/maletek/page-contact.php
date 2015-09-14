@@ -215,6 +215,7 @@
 
 		                	<!-- Form Change the "action" attribute to your back-end URL -->
 		                	<?php $sr_only = (is_ie() && get_browser_version() <= 9) ? '' : 'sr-only'; ?>
+		                	
 			                <form id="registrationForm" method="post" action="<?php the_permalink(); ?>">
 			                	<div class="row">
 			                		<div class="col-xs-12 col-sm-6">
