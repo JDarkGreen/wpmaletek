@@ -304,7 +304,7 @@ function woo_custom_cart_button_text() {
 /****************************************************************************************/
 
 //Filtro de woocomerce  - woocommerce_add_cart_item_data
-add_filter( 'woocommerce_add_cart_item_data', 'add_cart_item_custom_data_vase', 10, 2 );
+/*add_filter( 'woocommerce_add_cart_item_data', 'add_cart_item_custom_data_vase', 10, 2 );
 function add_cart_item_custom_data_vase( $cart_item_meta, $product_id ) {
     global $woocommerce;
     $cart_item_meta['cierre']    = $_POST['cierre'];

@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php if ( WC()->cart->needs_payment() ) : ?>
 
 	<!-- Ocultamos el metodo de pago -->
-	<ul class="payment_methods methods hidden">
+	<ul class="payment_methods methods hide">
 		<?php
 			if ( ! empty( $available_gateways ) ) {
 				foreach ( $available_gateways as $gateway ) {
