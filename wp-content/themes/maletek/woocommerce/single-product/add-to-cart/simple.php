@@ -229,7 +229,9 @@ if ( ! $product->is_purchasable() ) {
 
 		<!-- Input rango  -->
 		<input id="input-rango" type="hidden" name="rango" value="<?= $first_rango_slug;  ?>" />
-
+		
+		<!-- Input valor todas las configuraciones  -->
+		<input id="configurations" type="hidden" name="configurations" value="" />
 
 	</form><!-- /form -->
 

@@ -304,11 +304,12 @@ function woo_custom_cart_button_text() {
 /****************************************************************************************/
 
 //Filtro de woocomerce  - woocommerce_add_cart_item_data
-/*add_filter( 'woocommerce_add_cart_item_data', 'add_cart_item_custom_data_vase', 10, 2 );
+add_filter( 'woocommerce_add_cart_item_data', 'add_cart_item_custom_data_vase', 10, 2 );
 function add_cart_item_custom_data_vase( $cart_item_meta, $product_id ) {
     global $woocommerce;
-    $cart_item_meta['cierre']    = $_POST['cierre'];
-    $cart_item_meta['rango']     = $_POST['rango'];
+    $cart_item_meta['cierre']           = $_POST['cierre'];
+    $cart_item_meta['rango']            = $_POST['rango'];
+    $cart_item_meta['configurations']   = $_POST['configurations'];
     return $cart_item_meta;  //retornamos el valor 
 }
 
@@ -317,8 +318,35 @@ add_filter( 'woocommerce_get_cart_item_from_session', 'get_cart_items_from_sessi
 function get_cart_items_from_session( $item, $values, $key ) {
     if ( array_key_exists( 'cierre', $values ) )
         $item[ 'cierre' ] = $values['cierre'];
+
+    if ( array_key_exists( 'rango', $values ) )
+        $item[ 'rango' ] = $values['rango'];
+
+    if ( array_key_exists( 'configurations', $values ) )
+        $item[ 'configurations' ] = $values['configurations'];
+
     return $item;
 }
+
+
+//Salvar los datos cuando se hace el pedido
+add_action('woocommerce_add_order_item_meta','wdm_add_values_to_order_item_meta',1,3);
+
+function wdm_add_values_to_order_item_meta($item_id, $values, $key )
+{
+    global $woocommerce,$wpdb;
+    
+    if ( isset( $values['cierre'] ) && !empty( $values['cierre']) )
+        wc_add_order_item_meta( $item_id ,'cierre', $values['cierre'] ); 
+
+    if ( isset( $values['rango'] ) && !empty( $values['rango']) )
+        wc_add_order_item_meta( $item_id ,'rango', $values['rango'] );
+
+    if ( isset( $values['configurations'] ) && !empty( $values['configurations']) )
+        wc_add_order_item_meta( $item_id ,'configurations', $values['configurations'] );
+  }
+
+
 
 
 

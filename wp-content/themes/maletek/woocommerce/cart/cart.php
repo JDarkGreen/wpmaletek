@@ -26,9 +26,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 			<thead>
 				<tr>
 					<th class="product-name"><?php _e( 'Producto',THEMEDOMAIN ); ?></th>
-
 					<th class="product-closure-type"><?php _e( 'Tipo de Cierre' ,THEMEDOMAIN ); ?></th>
-					<th class="product-quantity">Modulos</th>
 					<th class="product-rango"><?php _e('Cant. Puertas', THEMEDOMAIN); ?></th>
 					<th class="product-model"><?php _e('Modelo' , THEMEDOMAIN ); ?></th>
 					<th class="product-thumbnail"><?php _e('Vista previa', THEMEDOMAIN ); ?> </th>
@@ -48,7 +46,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 					if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 						?>
 	
-						<?php  var_dump( $cart_item ); ?>
+						<?php  var_dump( $cart_item  ); ?>
 
 						<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> ">
 							
@@ -94,24 +92,6 @@ do_action( 'woocommerce_before_cart' ); ?>
 							</td>
 
 
-							<!-- Cantidad del producto -->
-							<td class="product-quantity">
-								<?php
-									if ( $_product->is_sold_individually() ) {
-										$product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
-									} else {
-										$product_quantity = woocommerce_quantity_input( array(
-											'input_name'  => "cart[{$cart_item_key}][qty]",
-											'input_value' => $cart_item['quantity'],
-											'max_value'   => $_product->backorders_allowed() ? '' : $_product->get_stock_quantity(),
-											'min_value'   => '0'
-										), $_product, false );
-									}
-
-									echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key );
-								?>
-							</td>
-							
 							<!-- 3- campo mostrar los rangos del producto -->
 							<td class="product-rango">
 								<?php  

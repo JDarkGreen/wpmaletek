@@ -337,7 +337,7 @@ var sliderNext = 2;
         };
 
         /*************************************************************************************/
-        /*-- Cambiamos el select por rangos en el modulode productos y lo filtramos por ajax-*/
+        /*-- Cambiamos el select por rangos en el modulo de productos y lo filtramos por ajax-*/
         /*************************************************************************************/
 
         //variable select de rango
@@ -431,6 +431,10 @@ var sliderNext = 2;
 
                 //Mostramos la informacion
                 container.html( html ).fadeIn(); 
+
+                //seteamos el valor en el input configuraciones para enviar luego al carrito
+                j('#configurations').val( html );
+
 
             }, 'json');
         } //fin de funcion ajax
