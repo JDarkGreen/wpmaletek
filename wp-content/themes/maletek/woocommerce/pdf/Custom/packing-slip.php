@@ -1,33 +1,21 @@
 <?php global $wpo_wcpdf; ?>
 
 <!-- Cabecera del documento  -->
-<table class="head container">
-	<tr>
+<header class="header-order">
+	<?php
+		//Si hay un logo id 
+		if( $wpo_wcpdf->get_header_logo_id() ) {
+			$wpo_wcpdf->header_logo();
+		} 
+		else {
+						//Si no mostrar "Albarán de Entrega" que es la traducción  
+			echo apply_filters( 'wpo_wcpdf_packing_slip_title', __( 'Packing Slip', 'wpo_wcpdf' ) );
+		}
+	?>	
+</header>
 
-		<td class="header">
-			<?php
-				//Si hay un logo id 
-				if( $wpo_wcpdf->get_header_logo_id() ) {
-					$wpo_wcpdf->header_logo();
-				} 
-				else {
-					//Si no mostrar "Albarán de Entrega" que es la traducción  
-					echo apply_filters( 'wpo_wcpdf_packing_slip_title', __( 'Packing Slip', 'wpo_wcpdf' ) );
-				}
-			?>
-		</td>
-	
-		<!-- Información de la Tienda en este caso de Maletek  pero vamos a ocultarla-->
-		<td class="shop-info" style="display:none">
-			<!-- Muestra el mombre de la tienda  -->
-			<div class="shop-name"><h3><?php $wpo_wcpdf->shop_name(); ?></h3></div>
-			<!-- Muestra la direccion de la tienda -->
-			<div class="shop-address"><?php $wpo_wcpdf->shop_address(); ?></div>
-		</td>
+<hr>
 
-
-	</tr>
-</table>
 
 <!-- Encabezado del documento Lo ocultamos -->
 <!--h1 class="document-type-label">
@@ -39,7 +27,7 @@
 </h1-->
 
 
-<!-- Importamos todos la informacion de la orden de compra /detalles -->
+<!-- Importamos todos la informacion antes de la orden de compra /detalles -->
 <?php do_action( 'wpo_wcpdf_before_order_details', $wpo_wcpdf->export->template_type, $wpo_wcpdf->export->order ); ?>
 
 
@@ -50,20 +38,23 @@
 	<?php 
 		$items = $wpo_wcpdf->get_order_items(); 
 
-		if( sizeof( $items ) > 0 ) : foreach( $items as $item_id => $item ) : 
+		if( sizeof( $items ) > 0 ) : 
+
+		foreach( $items as $item_id => $item ) : 
 	
 		//Obtenemos toda la data del producto y lo almacenamos en la variable
 		//product 
 		$_product = $item['product'];
 	?>
-
-	<hr><br>
 	
-	<!-- Mostramos el nombre del producto : -->
+	<!-- Mostramos el nombre del producto y su respectivo modelo : -->
 	<h2>
 		<?php  
-			$name = $item['name']; //titulo
-			if ( !empty($name) ) {  echo $name; }
+			$name    = $item['name']; //titulo o nombre del producto 
+			$_modelo = $item['item']['item_meta']['modelo'][0];	//conseguimos el modelo
+			
+			if ( !empty($name) && !empty($_modelo ) ) 
+				echo $name . ": " . $_modelo;
 		?>
 	</h2>
 
@@ -110,16 +101,12 @@
 		if ( !empty($p_description) ) { echo $p_description; }
 	?>
 
-	<br><br>
-
 	<!-- 5.- Tipo de Cierre -->
 	<h3> Tipo de Cierre </h3>
 	<?php  
 		$_cierre = $item['item']['item_meta']['cierre'][0];	//conseguimos el tipo de cierre
 		if ( !empty($_cierre) ) { echo $_cierre; }
 	?>
-
-	<br><br>
 
 	<!-- 6.- Tipo de Rango -->
 	<h3> Rango </h3>
@@ -128,22 +115,27 @@
 		if ( !empty($_rango) ) { echo $_rango; }
 	?>
 
-	<br><br>
-
 	<!-- 6.- Configuraciones -->
 	<h3> Configuraciones: </h3>
 	<br>
-	<?php  
-		$_configurations = $item['item']['item_meta']['configurations'][0];	//conseguimos el tipo de confgurations
-		if ( !empty($_configurations) ) { echo $_configurations; }
-	?>
+	
 
+	<section class="sec__configurations-products">
+		<?php  
+			$_configurations = $item['item']['item_meta']['configurations'][0];	//conseguimos el tipo de confgurations
+			if ( !empty($_configurations) ){ 
+				echo $_configurations; 
+			}else{
+				echo "No hay configuraciones para mostrar";
+			}
+		?>		
+	</section>	
+
+	<div style="page-break-before: always;"></div>	
 
 	<?php endforeach; endif; ?>
 </section>
 
-<br>
-<hr>
 
 <!-- Esta seccion mostrará el comentario u observacion de la compra  -->
 <section>

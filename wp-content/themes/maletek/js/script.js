@@ -442,6 +442,24 @@ var sliderNext = 2;
         /******************************************************************************************************/
         /*******************************    CARRITO              **********************************************/
 
+        //Antes de subir el formulario
+        j( ".variations_form" ).submit(function( event ) {
+
+            //Elemento clickeado - obtener el modelo 
+            var nmodel  = j(document.activeElement).data('nmodel');
+            //Elemento clickeado - obtener id el modelo 
+            var idmodel = j(document.activeElement).data('idmodel');
+
+            //Seter el modelo;
+            j('#input-modelo').val( nmodel );
+
+            //Setear el id del modelo
+            j('#input-id-modelo').val( idmodel );
+
+
+        });
+
+
         /* Display modal after cotize order */
 
 
@@ -452,9 +470,74 @@ var sliderNext = 2;
 
 
         /* Nota funcionamiento IMPORTANTE - este codigo envia parametros nuevos para actualizar la 
-            orden de compra */
+            orden de compra y enviar funciones ajax */
 
-        //Al hacer click al boton update cart
+        //Select de cada item del carrito
+        j('.js_rango').on('change',function(e){
+
+            var the_product = j(this).data('product'); //el producto a enviar
+            var the_rango   = j(this).val(); // el rango a enviar 
+
+            //El selector modelo el cual va a cambiar
+            var sl_model = j(this).parent('.product-rango').parent('.cart_item').find('.product-model select');
+
+            sl_model.html("<option value='update'>Actualizando...</option>");
+                
+            //Enviamos la parametros por ajax
+            j.post( MyAjax.url, {
+                nonce   : MyAjax.nonce,
+                action  : 'get_models_byrango',
+                product : the_product,
+                rango   : the_rango,
+            }, function(data) {
+
+                var html = "";     
+
+                if ( data.result ) 
+                {  
+                    html = data.content; 
+                    //Actualizamos la informacion 
+                    sl_model.html( html );
+
+                    sl_model.change();
+                }
+            }, 'json');
+
+        });
+
+        j('.js_modelo').on('change',function(e){
+
+            //Conseguimos el id del modelo de la opcion seleccionada
+            var the_id_model = j(this).find(":selected").attr("data-idmodel");
+
+            //El contenedor imagen modelo el cual va a cambiar
+            var img_model = j(this).parent('.product-model').parent('.cart_item').find('.product-thumbnail figure');
+
+            img_model.html("<p>Actualizando...</p>");
+
+            //Enviamos la parametros por ajax
+            j.post( MyAjax.url, {
+                nonce   : MyAjax.nonce,
+                action  : 'get_img_bymodel',
+                idmodel : the_id_model,
+            }, function(data) {
+
+                var html = "";     
+
+                if ( data.result ) 
+                {  
+                    html = data.content;
+
+                    console.log(img_model);
+
+                    //Actualizamos la informacion 
+                    img_model.html( html );
+                }
+            }, 'json');
+
+        });
+
+        
 
     
 

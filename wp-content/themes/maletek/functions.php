@@ -309,6 +309,8 @@ function add_cart_item_custom_data_vase( $cart_item_meta, $product_id ) {
     global $woocommerce;
     $cart_item_meta['cierre']           = $_POST['cierre'];
     $cart_item_meta['rango']            = $_POST['rango'];
+    $cart_item_meta['id_modelo']        = $_POST['id_modelo'];
+    $cart_item_meta['modelo']           = $_POST['modelo'];
     $cart_item_meta['configurations']   = $_POST['configurations'];
     return $cart_item_meta;  //retornamos el valor 
 }
@@ -321,6 +323,12 @@ function get_cart_items_from_session( $item, $values, $key ) {
 
     if ( array_key_exists( 'rango', $values ) )
         $item[ 'rango' ] = $values['rango'];
+
+    if ( array_key_exists( 'id_modelo', $values ) )
+        $item[ 'id_modelo' ] = $values['id_modelo'];
+
+    if ( array_key_exists( 'modelo', $values ) )
+        $item[ 'modelo' ] = $values['modelo'];
 
     if ( array_key_exists( 'configurations', $values ) )
         $item[ 'configurations' ] = $values['configurations'];
@@ -341,6 +349,12 @@ function wdm_add_values_to_order_item_meta($item_id, $values, $key )
 
     if ( isset( $values['rango'] ) && !empty( $values['rango']) )
         wc_add_order_item_meta( $item_id ,'rango', $values['rango'] );
+
+    if ( isset( $values['id_modelo'] ) && !empty( $values['id_modelo']) )
+        wc_add_order_item_meta( $item_id ,'id_modelo', $values['id_modelo'] );
+
+    if ( isset( $values['modelo'] ) && !empty( $values['modelo']) )
+        wc_add_order_item_meta( $item_id ,'modelo', $values['modelo'] );
 
     if ( isset( $values['configurations'] ) && !empty( $values['configurations']) )
         wc_add_order_item_meta( $item_id ,'configurations', $values['configurations'] );
@@ -566,6 +580,14 @@ function get_lockers_byfilter_callback()
             array_push( $array_id_tax , $t_ID );
         }
     }
+
+    //Conseguimos el primer nombre del modelo;
+    $first_termino    = get_term( $array_id_tax[0] , $taxonomy ); 
+    //Para luego setear el nombre del primer modelo
+    $first_model_name = $first_termino->name;
+    //Para setear el id del primer modelo
+    $first_model_id   = $array_id_tax[0];
+
 
     //Si el array de ids no se encuentra vaacio
     if ( !empty($array_id_tax) )
@@ -885,6 +907,115 @@ function add_pa_modelos_column_content(  $out , $column , $post_id ){
 add_filter('manage_pa_modelos_custom_column', 'add_pa_modelos_column_content', 10, 3 );
 
 
+/**********************************************************************************/
+/* Conseguir SOLO los modelos por rango en el carrito woocommerce  */
+/**********************************************************************************/
+add_action( 'wp_ajax_get_models_byrango', 'get_models_byrango_callback' );
+add_action( 'wp_ajax_nopriv_get_models_byrango', 'get_models_byrango_callback' );
+
+function get_models_byrango_callback()
+{
+    $nonce  = $_POST['nonce'];
+    $result = array( 'result' => FALSE );
+
+    if ( !wp_verify_nonce( $nonce, 'myajax-post-comment-nonce') )
+    {
+        die( 'Te atrapamos maldito!' );
+    }
+
+    global $post;
+
+    $the_product = $_POST['product'];
+    $the_rango   = $_POST['rango'];
+
+    $taxonomy_modelos = "pa_modelos";
+    $args     = array(
+        'hide_empty' => false, 
+    );
+
+    $array_modelos = get_terms( $taxonomy_modelos , $args );
+    $array_id_tax  = []; //array vacio contendrá id de modelos 
+
+    foreach ($array_modelos as $modelo ) {
+        $t_ID = $modelo->term_id; //conseguimos el id
+        $term_data = get_option("taxonomy_$t_ID"); //asignamos a la taxonomia ubicada en tabla wp_options
+
+        $producto = $term_data['texto01']; //conseguimos el producto
+        $rango   =  $term_data['texto02']; //conseguimos el rango 
+
+        //Hacemos la comparacion y si es verdadera agregamos al nuevo array 
+        if ( ($producto == $the_product )  && ($rango == $the_rango ) ) {
+            array_push( $array_id_tax , $t_ID );
+        }
+    }
+
+    //Si el array de ids no se encuentra vaacio
+    if ( !empty($array_id_tax) )
+    {
+        $result['result'] = TRUE;
+
+        ob_start();
+
+        include TEMPLATEPATH . '/includes/get-onlymodels-ajax.php';
+
+        $content = ob_get_contents();
+
+        ob_get_clean();
+
+        $result['content'] = $content;
+
+    }
+
+    wp_reset_postdata();
+
+    echo json_encode( $result );
+
+    die();
+}
+
+
+/**********************************************************************************/
+/* Conseguir SOLO LA IMAGEN por el id del modelo en el carrito woocommerce  */
+/**********************************************************************************/
+add_action( 'wp_ajax_get_img_bymodel', 'get_img_bymodel_callback' );
+add_action( 'wp_ajax_nopriv_get_img_bymodel', 'get_img_bymodel_callback' );
+
+function get_img_bymodel_callback()
+{
+    $nonce  = $_POST['nonce'];
+    $result = array( 'result' => FALSE );
+
+    if ( !wp_verify_nonce( $nonce, 'myajax-post-comment-nonce') )
+    {
+        die( 'Te atrapamos maldito!' );
+    }
+
+    global $post;
+
+    $the_id_model = $_POST['idmodel'];
+
+    $taxonomy_modelos = "pa_modelos";
+
+    //Extraemos la url imagen del termino
+    $term  = get_term( $the_id_model , $taxonomy_modelos ); //colocamos el termino
+    $image = s8_get_taxonomy_image( $term );
+
+
+    //Si el array de ids no se encuentra vaacio
+    if ( !empty( $image ) )
+    {
+        $result['result']  = TRUE;
+
+        $result['content'] = $image;
+
+    }
+
+    wp_reset_postdata();
+
+    echo json_encode( $result );
+
+    die();
+}
 
 
 /**********************************************************************************/

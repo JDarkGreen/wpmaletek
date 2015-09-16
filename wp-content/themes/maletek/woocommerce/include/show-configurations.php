@@ -4,8 +4,8 @@
 /*Archivo que muestra los diferentes tipos de configuraciones de acuerdo al rango*/
 /*********************************************************************************/
 
-//Argumentos para hacer la consulta
 
+//Argumentos para hacer la consulta
 
 $model_producto = get_the_title();  //el producto actual donde se encuentra
 
@@ -22,6 +22,7 @@ $array_id_tax = [];
 
 //Conseguimos todos los id de los terminos de tanonomia modelos creadas y la comparamos con nuestros 
 // argumentos si son iguales entonces guardamos su id en otro array
+
 
 $taxonomy = "pa_modelos";
 $args     = array(
@@ -46,10 +47,14 @@ foreach ($array_modelos as $modelo ) {
 //Hacemos el var_dump del array
 //var_dump($array_id_tax);
 
+	//Conseguimos el primer nombre del modelo;
+	$first_termino    = get_term( $array_id_tax[0] , $taxonomy ); 
+	//Para luego setear el nombre del primer modelo
+	$first_model_name = $first_termino->name;
+	//Para setear el id del primer modelo
+	$first_model_id   = $array_id_tax[0];
+
 ?>
-
-
-
 
 <section class="sec__configurations-products">
 	
@@ -61,6 +66,12 @@ foreach ($array_modelos as $modelo ) {
 	<div id="js-sec__configurations-products__content">
 		
 		<?php if (!empty($array_id_tax)): ?>
+
+			<?php  
+				//Vamos a guardar el contenido para luego setearlo en una variable 
+				//que guardara las configuraciones respectivas 
+				ob_start();
+			?>
 
 			<?php  for ( $i= 0; $i < count($array_id_tax) ; $i++) {  ?>
 
@@ -74,8 +85,9 @@ foreach ($array_modelos as $modelo ) {
 					//var_dump($term_data);
 
 					$active = $i == 0 ? "active" : "";
-				?>
 
+				?>
+				
 
 				<article class="sec__configurations-products__article text-center col-xs-3 <?= $active; ?>">
 					<?php 
@@ -105,14 +117,22 @@ foreach ($array_modelos as $modelo ) {
 					<!-- Boton de agregar al carrito para cada configuracion  -->
 					<?php //global $woocommerce , $product; ?>
 
-					<button type="submit" class="single_add_to_cart_button cart_button hidden-xs">
+					<button type="submit" class="single_add_to_cart_button cart_button hidden-xs" data-nmodel="<?= $term->name; ?>" data-idmodel="<?= $array_id_tax[$i] ?>">
 					<!-- Mensaje texto del carrito ya configurado en functions.php -->
 						<?= $product->single_add_to_cart_text(); ?> 
 					</button>
 
 				</article> <!-- /article -->
 
-			<?php }; ?> 
+			<?php }; 
+
+				//Aquí terminamos de guardar nuestro contenido
+				$configurations_html  = ob_get_contents(); // guarda para imprime contenido
+				ob_end_clean();
+
+				if ( !empty($configurations_html) ) 
+					echo $configurations_html;
+			?> 
 
 			<div class="clearfix"></div>
 		

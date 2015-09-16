@@ -275,4 +275,68 @@ table.totals tr.payment_method {
 /*---------- Nuevos estilos agregados -----------------------------------------------------------------*/
 /*******************************************************************************************************/
 
+/* section */
+.sec__configurations-products{
+	display: block;
+	margin : 0 auto;
+	width  : 100%;
+}
 
+/* article */
+.sec__configurations-products__article{
+	display    : inline-block;
+	float      : none;
+	font-family: "Source Sans Pro",sans-serif;
+	padding    : 0 5px;
+	text-align : center;
+}
+
+/* figure */
+.sec__configurations-products__article figure {
+	border: 1px solid #CCC;
+	height: 198px;
+	margin: 0px 0px 14px;
+	width : 100%;
+}
+
+/* figure active */
+.sec__configurations-products__article.active figure{
+    border: 2px solid #C10F1A;
+}
+
+/* img */
+.sec__configurations-products__article figure img {
+	margin   : 20px;
+	max-width: 100%;
+}
+
+
+/* titulo o nombre */
+.sec__configurations-products__article__title {
+	font-size  : 16px;
+	font-weight: 600;
+	line-height: 18px;
+	margin     : 0px auto;
+}
+
+/* Descripcion del producto */
+.sec__configurations-products__article p {
+	font-size  : 12px;
+	line-height: 14px;
+	margin     : 0px auto;
+}
+
+/* fuente semibold */
+.sec__configurations-products__article .semibold {
+    font-weight: 600;
+}
+
+.sec__configurations-products__article hr{
+	display: none;
+}
+
+
+/* Boton de  agregar al carrito */
+button.cart_button {
+	display: none;
+}

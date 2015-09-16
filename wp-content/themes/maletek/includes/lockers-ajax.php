@@ -40,7 +40,7 @@
 			<hr>
 
 			<!-- Boton para agregar el producto al carrito  -->
-			<button type="submit" class="single_add_to_cart_button cart_button hidden-xs">
+			<button type="submit" class="single_add_to_cart_button cart_button hidden-xs" data-nmodel="<?= $term->name; ?>" data-idmodel="<?= $array_id_tax[$i] ?>">
 				<?= $the_message; ?> 		
 			</button>
 
