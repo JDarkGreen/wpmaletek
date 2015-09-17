@@ -186,7 +186,7 @@ if ( ! $product->is_purchasable() ) {
 										$image_html = s8_get_taxonomy_image( $term , array(200,210)); 
 										$atribute   = "attribute_" . sanitize_title( $name );
 
-										echo '<li><a href="#" data-attr="'. $term->term_id .'"><figure>' . $image_html . '</figure><p>'. $term->name . '<span>' . $term->description  . '</span></p></a></li>';
+										echo '<li><a href="#" data-attr="'. $term->name .'"><figure>' . $image_html . '</figure><p>'. $term->name . '<span>' . $term->description  . '</span></p></a></li>';
 									}
 								}
 							?>
@@ -225,10 +225,13 @@ if ( ! $product->is_purchasable() ) {
 			$first_tipo_cierre = $terms[0];
 		?>
 
-		<input id="input-tipo-cierre" type="hidden" name="cierre" value="<?= $first_tipo_cierre->term_id; ?>" />
+		<input id="input-tipo-cierre" type="hidden" name="cierre" value="<?= $first_tipo_cierre->name; ?>" />
 
 		<!-- Input rango  -->
 		<input id="input-rango" type="hidden" name="rango" value="<?= $first_rango_slug;  ?>" />
+		
+		<!-- Input imagen miniatura  -->
+		<input id="input-img-model" type="hidden" name="img_modelo" value="<?= htmlentities($first_model_img , ENT_COMPAT,'UTF-8' ); ?>" />
 		
 		<!-- Input id Modelo -->
 		<input id="input-id-modelo" type="hidden" name="id_modelo" value="<?= $first_model_id; ?>" />

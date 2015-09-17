@@ -13,28 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 //wc_print_notices();
 
-//echo "hola mundo";
-//exit;
+
+//Todo el contenido de la session del carrito;
+$all_data_cart = WC()->cart->get_cart();
 
 var_dump($_POST);
-//var_dump(WC()->cart->get_cart());
-
-//Si existe el input oculto para actualizar el carrito ejecutar la funcion
-if ( isset( $_POST['cart_update'] ) ) {
-	
-	foreach ( WC()->cart->get_cart() as $cart_key => $cart_itm ) {
-
-		//var_dump($cart_k)
-		//var_dump($_POST['select_variation_'.$cart_key][0]);
-
-		//var_dump($post_cart_key);
-		//cierre = select_variation_2ff811932cd87fe460c3cb8fe47f3f1f[0]; 
-		$cart_itm['cierre'] = 2;
-	}
-}
-
-
-//var_dump( WC()->cart->get_cart());
+//var_dump($all_data_cart);
 
 do_action( 'woocommerce_before_cart' ); ?>
 
@@ -44,7 +28,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 		<input id="update_cart" type="submit" class="button" name="update_cart" value="Actualizar carrito" />
 		<?php wp_nonce_field( 'woocommerce-cart' ); ?>
 		
-		<!-- Input condicional de actualizar el carrito -->
+		<!-- Input oculto condicional de actualizar el carrito -->
 		<input type="hidden" name="cart_update" value="" />
 
 		<!--table class="shop_table cart" cellspacing="0"-->
@@ -65,17 +49,12 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 				<?php
 
-				foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+				foreach ( $all_data_cart as $cart_item_key => $cart_item ) {
 					$_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 					$product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
 
 					if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 						?>
-	
-						<?php  //var_dump( $cart_item_key  ); ?>
-
-
-
 
 
 						<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?> ">
@@ -111,9 +90,9 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 								?>
 								<!-- Select de todas las variaciones y se mostrará el elegido  -->
-								<select name="select_variation_<?= $cart_item_key ?>[]" id="select_variation_<?php echo $cart_item_key ?>">
+								<select name="select_variation_<?= $cart_item_key ?>" id="select_variation_<?php echo $cart_item_key ?>">
 									<?php foreach ( $terms_cierre as $term_cierre ) : ?>
-										<option value="<?php echo $term_cierre->term_id; ?>" <?php if( $term_cierre->term_id == $the_cart_item_cierre ){ echo 'selected'; } ?>>
+										<option value="<?php echo $term_cierre->name; ?>" <?php if( $term_cierre->name == $the_cart_item_cierre ){ echo 'selected'; } ?>>
 											<?php echo $term_cierre->name ?>
 										</option>
 									<?php endforeach; ?>
@@ -137,7 +116,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 								?>
 								
 								<!-- Mostramos todos los rangos y estará seleccionado el elegido -->
-								<select name="select_rango_<?php echo $cart_item['product_id'] ?>" id="select_rango_<?php echo $cart_item['product_id'] ?>" class="js_rango" data-product="<?= $_product->get_title(); ?>">
+								<select name="select_rango_<?= $cart_item_key; ?>" id="select_rango_<?= $cart_item_key; ?>" class="js_rango" data-product="<?= $_product->get_title(); ?>">
 									<?php foreach ( $terms_rango as $term_rango ) : ?>
 										<option value="<?php echo $term_rango->slug ?>" <?php if( $term_rango->slug == $the_cart_item_rango  ){ echo "selected"; } ?> > 
 											<?php echo $term_rango->name ?>
@@ -183,7 +162,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 	 							
 	 							<!-- Select de todos los modelos segun el filtro  -->
-	 							<select name="select_modelo_<?php echo $cart_item['product_id'] ?>" id="select_modelo_<?php echo $cart_item['product_id'] ?>" class="js_modelo">
+	 							<select name="select_modelo_<?= $cart_item_key; ?>" id="select_modelo_<?= $cart_item_key; ?>" class="js_modelo">
 								<?php 									
 									//una vez obtenido el array mostramos los modelos
 									for ($i=0; $i < count($array_id_tax) ; $i++) {
@@ -201,21 +180,13 @@ do_action( 'woocommerce_before_cart' ); ?>
 							<!-- 5- Miniatura del producto -->
 							<td class="product-thumbnail">
 								<?php
-									/*$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
-
-									if ( ! $_product->is_visible() )
-										echo $thumbnail;
-									else
-										printf( '<a href="%s">%s</a>', $_product->get_permalink( $cart_item ), $thumbnail );*/
-
-									//Obtenemos el modelo ya seleccionado
-									$the_cart_id_item_modelo =  $cart_item['id_modelo'];
-
-									//Extraemos la url imagen del termino
-									$term  = get_term( $the_cart_id_item_modelo , $taxonomy_modelos ); //colocamos el termino
-									$image = s8_get_taxonomy_image( $term );  
+									//Obtenemos la imagen del modelo  ya seleccionado
+									$image_model =  $cart_item['img_modelo'];
+									$image_model =  stripslashes($image_model);
 								?>
-								<figure><?= $image; ?></figure>
+
+								<figure><?= $image_model; ?></figure>
+								<input type="hidden" name="input_img_model_<?= $cart_item_key;  ?>" value="<?= htmlentities($image_model); ?>" />
 							</td>	
 
 							<!-- campo para remover o eliminar productos de la lista del carrito de compra  -->

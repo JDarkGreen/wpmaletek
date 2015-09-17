@@ -53,6 +53,8 @@ foreach ($array_modelos as $modelo ) {
 	$first_model_name = $first_termino->name;
 	//Para setear el id del primer modelo
 	$first_model_id   = $array_id_tax[0];
+	//Para setear la img del primer modelo
+	$first_model_img  = s8_get_taxonomy_image( $first_termino );  //colocamos el termino
 
 ?>
 

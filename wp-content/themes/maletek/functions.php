@@ -302,7 +302,6 @@ function woo_custom_cart_button_text() {
 /*****************************************************************************************/
 /* Vamos a agregar nuevos campos al producto para luego extraer esa informacion en el carrito  */
 /****************************************************************************************/
-
 //Filtro de woocomerce  - woocommerce_add_cart_item_data
 add_filter( 'woocommerce_add_cart_item_data', 'add_cart_item_custom_data_vase', 10, 2 );
 function add_cart_item_custom_data_vase( $cart_item_meta, $product_id ) {
@@ -310,6 +309,7 @@ function add_cart_item_custom_data_vase( $cart_item_meta, $product_id ) {
     $cart_item_meta['cierre']           = $_POST['cierre'];
     $cart_item_meta['rango']            = $_POST['rango'];
     $cart_item_meta['id_modelo']        = $_POST['id_modelo'];
+    $cart_item_meta['img_modelo']       = $_POST['img_modelo'];
     $cart_item_meta['modelo']           = $_POST['modelo'];
     $cart_item_meta['configurations']   = $_POST['configurations'];
     return $cart_item_meta;  //retornamos el valor 
@@ -318,20 +318,45 @@ function add_cart_item_custom_data_vase( $cart_item_meta, $product_id ) {
 add_filter( 'woocommerce_get_cart_item_from_session', 'get_cart_items_from_session', 1, 3 );
 //Get it from the session and add it to the cart variable
 function get_cart_items_from_session( $item, $values, $key ) {
-    if ( array_key_exists( 'cierre', $values ) )
-        $item[ 'cierre' ] = $values['cierre'];
 
-    if ( array_key_exists( 'rango', $values ) )
-        $item[ 'rango' ] = $values['rango'];
+    global $woocommerce,$wpdb;
 
-    if ( array_key_exists( 'id_modelo', $values ) )
-        $item[ 'id_modelo' ] = $values['id_modelo'];
+    if ( isset( $_POST['cart_update']) ) {
 
-    if ( array_key_exists( 'modelo', $values ) )
-        $item[ 'modelo' ] = $values['modelo'];
+        //Actualizar los datos del carrito si se han cambiado los datos 
 
-    if ( array_key_exists( 'configurations', $values ) )
-        $item[ 'configurations' ] = $values['configurations'];
+        //Si se cambio el tipo de cierre
+        if ( isset( $_POST['select_variation_'.$key] ) )
+            $item[ 'cierre' ] = $_POST['select_variation_'.$key];
+
+        //Si se cambio el rango
+        if ( isset( $_POST['select_rango_'.$key] ) )
+            $item[ 'rango' ] = $_POST['select_rango_'.$key];
+
+        //Si se cambio el modelo
+        if ( isset( $_POST['select_modelo_'.$key] ) )
+            $item[ 'modelo' ] = $_POST['select_modelo_'.$key];
+
+        //Si se cambio la imagen del modelo
+        if ( isset( $_POST['input_img_model_'.$key] ) )
+            $item[ 'img_modelo' ] = $_POST['input_img_model_'.$key];
+
+    }else{
+
+        //Sino dejar los valores por defecto;
+
+        $item[ 'cierre' ]         = $values['cierre'];
+
+        $item[ 'rango' ]          = $values['rango'];
+
+        $item[ 'id_modelo' ]      = $values['id_modelo'];
+
+        $item[ 'img_modelo' ]     = $values['img_modelo'];
+
+        $item[ 'modelo' ]         = $values['modelo'];
+
+        $item[ 'configurations' ] = $values['configurations']; 
+    }
 
     return $item;
 }
@@ -359,6 +384,16 @@ function wdm_add_values_to_order_item_meta($item_id, $values, $key )
     if ( isset( $values['configurations'] ) && !empty( $values['configurations']) )
         wc_add_order_item_meta( $item_id ,'configurations', $values['configurations'] );
   }
+
+
+            
+
+
+
+
+
+
+
 
 
 
@@ -587,6 +622,8 @@ function get_lockers_byfilter_callback()
     $first_model_name = $first_termino->name;
     //Para setear el id del primer modelo
     $first_model_id   = $array_id_tax[0];
+    //Para setear la img del primer modelo
+    $first_model_img  = s8_get_taxonomy_image( $first_termino );  //colocamos el termino
 
 
     //Si el array de ids no se encuentra vaacio

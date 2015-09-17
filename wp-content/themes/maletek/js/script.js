@@ -496,11 +496,18 @@ var sliderNext = 2;
                 if ( data.result ) 
                 {  
                     html = data.content; 
-                    //Actualizamos la informacion 
-                    sl_model.html( html );
 
-                    sl_model.change();
+                    
+                }else
+                {
+                    html = "<option value='none'>Elejir Otro Rango</option>";
                 }
+
+                //Actualizamos la informacion 
+                sl_model
+                    .html( html )
+                    .change();
+
             }, 'json');
 
         });
@@ -513,6 +520,10 @@ var sliderNext = 2;
             //El contenedor imagen modelo el cual va a cambiar
             var img_model = j(this).parent('.product-model').parent('.cart_item').find('.product-thumbnail figure');
 
+            //El input oculto el cual cambiaremos su valor 
+            var input_hidden_img = j(this).parent('.product-model').parent('.cart_item').find('.product-thumbnail input');
+
+            //Mostrar estado de actualizacion 
             img_model.html("<p>Actualizando...</p>");
 
             //Enviamos la parametros por ajax
@@ -530,9 +541,17 @@ var sliderNext = 2;
 
                     console.log(img_model);
 
-                    //Actualizamos la informacion 
-                    img_model.html( html );
+                }else{
+                    html = "Image not show";
                 }
+
+                //Actualizamos la informacion 
+                //De la figura
+                img_model.html( html );
+                //Del input
+                input_hidden_img.val( html );
+
+
             }, 'json');
 
         });

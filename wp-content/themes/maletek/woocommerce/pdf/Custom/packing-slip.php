@@ -64,7 +64,8 @@
 	<figure class="item-thumbnail">
 		<?php  
 			//Conseguir la url imagen
-			$image = $_product->get_image();
+			//$image = $_product->get_image();
+			$image = $item['item']['item_meta']['img_modelo'][0];
 			
 			if ( !empty($image) ) {  echo $image; }
 		?>
