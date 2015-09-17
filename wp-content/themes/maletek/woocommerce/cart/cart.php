@@ -122,7 +122,11 @@ do_action( 'woocommerce_before_cart' ); ?>
 											<?php echo $term_rango->name ?>
 										</option>
 									<?php endforeach; ?>
-								</select>																
+								</select>
+								
+								<!-- Input oculto que guarda las configuraciones por tipo de rango el cual se
+									vva a setear el valor cada vez que se cambie el rango  -->
+								<input type="hidden" name="input_configurations_<?= $cart_item_key; ?>" value="<?= htmlentities( $cart_item['configurations'] ); ?>"/>																
 
 							</td>
 							
