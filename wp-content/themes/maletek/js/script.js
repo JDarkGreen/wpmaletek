@@ -479,8 +479,12 @@ var sliderNext = 2;
             var the_rango   = j(this).val(); // el rango a enviar 
 
             //El selector modelo el cual va a cambiar
-            var sl_model = j(this).parent('.product-rango').parent('.cart_item').find('.product-model select');
+            var sl_model     = j(this).parent('.product-rango').parent('.cart_item').find('.product-model select');
+ 
+            //El campo oculto que tendra todas las configuraciones
+            var input_config = j(this).parent('.product-rango').parent('.cart_item').find('.product-model input');
 
+            //Mostrar el estado de actualizacion
             sl_model.html("<option value='update'>Actualizando...</option>");
                 
             //Enviamos la parametros por ajax
@@ -507,6 +511,9 @@ var sliderNext = 2;
                 sl_model
                     .html( html )
                     .change();
+
+                //Actualizar el campo oculto que guarda las configuraciones 
+                input_config.val( html );
 
             }, 'json');
 

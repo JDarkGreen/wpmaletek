@@ -341,6 +341,11 @@ function get_cart_items_from_session( $item, $values, $key ) {
         if ( isset( $_POST['input_img_model_'.$key] ) )
             $item[ 'img_modelo' ] = $_POST['input_img_model_'.$key];
 
+        //Si se cambio la configuracion de los rangos
+        if ( isset( $_POST['input_configurations_'.$key] ) )
+            $item[ 'configurations' ] = $_POST['input_configurations_'.$key];
+
+
     }else{
 
         //Sino dejar los valores por defecto;
